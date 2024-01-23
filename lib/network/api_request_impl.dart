@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:http_service/export.dart';
+import 'package:network_service/network/constant/enums.dart';
+import 'package:network_service/network/newtork_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 
