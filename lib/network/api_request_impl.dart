@@ -92,7 +92,21 @@ class ApiRequestImpl implements ApiRequest {
 
       List<int> successStatusCode = [200, 201];
       if (successStatusCode.contains(response?.statusCode)) {
-        return Left({'data': response?.data, 'message': message});
+        if (response?.data is Map && response?.data.containsKey('meta')) {
+          return Left(
+              {'data': response?.data, 'message': response?.data['message']});
+        } else {
+          dynamic data = (response?.data is! List) &&
+                  response?.data.containsKey('data') &&
+                  response?.data.length <= 3
+              ? response?.data['data']
+              : response?.data;
+
+          dynamic message =
+              (response?.data is! List) ? response?.data['message'] : null;
+
+          return Left({'data': data, 'message': message});
+        }
       } else if (response?.statusCode == 500) {
         return Right(FailureState(message: 'Something went wrong'));
       } else if (response?.statusCode == 401) {
