@@ -27,7 +27,6 @@ class NetworkService {
     String contentType = Headers.jsonContentType,
     Map<String, dynamic> headers = const {"Accept": "application/json"},
     String? pemCertificate,
-    bool isToEnableSSLCertificate = false,
     Uint8List? localCertificateBytes,
   }) async {
     _apiManager = ApiManagerImpl();
@@ -37,7 +36,8 @@ class NetworkService {
       headers: headers,
       connectTimeout: connectTimeout,
       contentType: contentType,
-      isToEnableSSLCertificate: isToEnableSSLCertificate,
+      isToEnableSSLCertificate:
+          (pemCertificate != null) || (localCertificateBytes != null),
       localCertificateBytes: localCertificateBytes,
       pemCertificate: pemCertificate,
       receiveTimeout: receiveTimeout,

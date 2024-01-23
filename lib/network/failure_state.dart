@@ -1,30 +1,20 @@
 class FailureState {
-  FailureState({this.message, this.statusCode, this.errorCode});
+  FailureState({this.message, this.statusCode, this.data});
 
   FailureState.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    statusCode = json['code'].toString();
-    errorCode =
-    json['errors'] != null ? ErrorCode.fromJson(json['errors']) : null;
+    statusCode = json['status_code'];
+    data = json['data'];
   }
   String? message;
-  String? statusCode;
-  ErrorCode? errorCode;
+  int? statusCode;
+  dynamic data;
 
   Map<String, dynamic> toJson() {
     return {
       "message": message,
-      "code": statusCode,
+      "status_code": statusCode,
+      "data": data,
     };
-  }
-}
-
-class ErrorCode {
-  List? errors;
-
-  ErrorCode({this.errors});
-
-  ErrorCode.fromJson(Map<String, dynamic> json) {
-    errors = json['username'];
   }
 }
