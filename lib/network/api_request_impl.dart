@@ -15,7 +15,7 @@ import 'interface/api_request.dart';
 
 class ApiRequestImpl implements ApiRequest {
   @override
-  Future<Either<dynamic, FailureState>> getResponse({
+  Future<Either<Response<dynamic>, FailureState>> getResponse({
     required String endPoint,
     required ApiMethods apiMethods,
     Map<String, dynamic>? queryParams,
@@ -133,7 +133,7 @@ class ApiRequestImpl implements ApiRequest {
   }
 
   @override
-  Future<Either<dynamic, FailureState>> uploadAnyMultipleFile({
+  Future<Either<Response<dynamic>, FailureState>> uploadAnyMultipleFile({
     required String endPoint,
     required List<File> files,
     required FormData formData,
@@ -164,7 +164,7 @@ class ApiRequestImpl implements ApiRequest {
   }
 
   @override
-  Future<Either<dynamic, FailureState>> uploadAnySingleFile({
+  Future<Either<Response<dynamic>, FailureState>> uploadAnySingleFile({
     required String endPoint,
     required File file,
     required FormData formData,
