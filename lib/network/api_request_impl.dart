@@ -83,7 +83,7 @@ class ApiRequestImpl implements ApiRequest {
   }
 
   @override
-  Future<Either<dynamic, FailureState>> decodeHttpRequestResponse(
+  Future<Either<Response<dynamic>, FailureState>> decodeHttpRequestResponse(
     Future<dynamic> apiCall, {
     String message = "",
   }) async {
@@ -92,21 +92,7 @@ class ApiRequestImpl implements ApiRequest {
 
       List<int> successStatusCode = [200, 201];
       if (successStatusCode.contains(response?.statusCode)) {
-        if (response?.data is Map && response?.data.containsKey('meta')) {
-          return Left(
-              {'data': response?.data, 'message': response?.data['message']});
-        } else {
-          dynamic data = (response?.data is! List) &&
-                  response?.data.containsKey('data') &&
-                  response?.data.length <= 3
-              ? response?.data['data']
-              : response?.data;
-
-          dynamic message =
-              (response?.data is! List) ? response?.data['message'] : null;
-
-          return Left({'data': data, 'message': message});
-        }
+        return Left(response!);
       } else if (response?.statusCode == 500) {
         return Right(FailureState(message: 'Something went wrong'));
       } else if (response?.statusCode == 401) {

@@ -22,7 +22,7 @@ abstract class ApiRequest {
     int expiryDurationInDays = 3,
   });
 
-  Future<Either<dynamic, FailureState>> decodeHttpRequestResponse(
+  Future<Either<Response<dynamic>, FailureState>> decodeHttpRequestResponse(
     Future<dynamic> apiCall, {
     String message = "",
   });
