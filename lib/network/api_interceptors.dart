@@ -127,7 +127,7 @@ class ApiInterceptor extends Interceptor {
       key = key + jsonEncode(queryParameters);
     }
 
-    if (data != null) {
+    if (data != null && data is! FormData) {
       key = key + jsonEncode(data);
     }
     return key;
